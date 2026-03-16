@@ -1,0 +1,1693 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Michelle Tabor — HubSpot Architect & Solutions Engineer</title>
+    <meta
+      name="description"
+      content="Michelle Tabor is a Solutions Engineer and HubSpot Architect based in Oklahoma City, OK."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --black: #0a0a0a;
+        --white: #f5f0e8;
+        --yellow: #ffe033;
+        --pink: #ff3b6b;
+        --teal: #00c9a7;
+        --blue: #1a6bff;
+        --border: 3px solid var(--black);
+        --shadow: 5px 5px 0px var(--black);
+        --shadow-lg: 8px 8px 0px var(--black);
+      }
+
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        font-family: "DM Sans", sans-serif;
+        background-color: var(--white);
+        color: var(--black);
+        overflow-x: hidden;
+      }
+
+      /* NAV */
+      nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 100;
+        background: var(--yellow);
+        border-bottom: var(--border);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 2rem;
+        height: 60px;
+      }
+
+      .nav-logo {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 1.6rem;
+        letter-spacing: 2px;
+        color: var(--black);
+        text-decoration: none;
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 0;
+        list-style: none;
+      }
+
+      .nav-links a {
+        font-family: "Space Mono", monospace;
+        font-size: 0.7rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        color: var(--black);
+        text-decoration: none;
+        padding: 0.5rem 1rem;
+        border-left: var(--border);
+        transition: background 0.15s;
+      }
+
+      .nav-links a:last-child {
+        border-right: var(--border);
+      }
+      .nav-links a:hover {
+        background: var(--black);
+        color: var(--yellow);
+      }
+
+      /* HERO */
+      #hero {
+        min-height: 100vh;
+        padding-top: 60px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        border-bottom: var(--border);
+      }
+
+      .hero-left {
+        padding: 5rem 3rem 4rem 3rem;
+        border-right: var(--border);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+
+      .hero-tag {
+        display: inline-block;
+        font-family: "Space Mono", monospace;
+        font-size: 0.7rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        background: var(--teal);
+        border: var(--border);
+        padding: 0.3rem 0.8rem;
+        box-shadow: var(--shadow);
+        margin-bottom: 1.5rem;
+        width: fit-content;
+      }
+
+      .hero-name {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: clamp(5rem, 10vw, 9rem);
+        line-height: 0.9;
+        letter-spacing: 2px;
+        margin-bottom: 1.5rem;
+      }
+
+      .hero-name span {
+        display: block;
+        color: var(--pink);
+        -webkit-text-stroke: 2px var(--black);
+      }
+
+      .hero-sub {
+        font-size: 1.1rem;
+        font-weight: 400;
+        line-height: 1.6;
+        max-width: 480px;
+        margin-bottom: 2.5rem;
+        color: #333;
+      }
+
+      .hero-ctas {
+        display: flex;
+        gap: 1rem;
+        flex-wrap: wrap;
+      }
+      .hero-photo {
+        width: 100%;
+        max-width: 320px;
+        aspect-ratio: 1;
+        border: var(--border);
+        box-shadow: var(--shadow-lg);
+        display: block;
+        object-fit: cover;
+        object-position: center top;
+      }
+      .hero-photo-wrap {
+        position: relative;
+        width: 300px;
+        margin: 0 auto 55px auto;
+      }
+
+      .hero-photo-wrap::before {
+        content: "";
+        position: absolute;
+        top: 12px;
+        left: 12px;
+        width: 100%;
+        height: 100%;
+        background: var(--teal);
+        border: var(--border);
+        z-index: 0;
+      }
+
+      .hero-photo {
+        position: relative;
+        z-index: 1;
+        width: 100%;
+        aspect-ratio: 3/4;
+        object-fit: cover;
+        object-position: center top;
+        border: var(--border);
+        display: block;
+        filter: grayscale(100%) contrast(1.1);
+        transition: filter 0.3s;
+      }
+
+      .hero-photo:hover {
+        filter: grayscale(0%) contrast(1);
+      }
+      .btn {
+        font-family: "Space Mono", monospace;
+        font-size: 0.8rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        padding: 0.85rem 1.8rem;
+        border: var(--border);
+        cursor: pointer;
+        text-decoration: none;
+        display: inline-block;
+        transition:
+          transform 0.1s,
+          box-shadow 0.1s;
+        box-shadow: var(--shadow);
+      }
+
+      .btn:hover {
+        transform: translate(-2px, -2px);
+        box-shadow: 7px 7px 0 var(--black);
+      }
+      .btn:active {
+        transform: translate(2px, 2px);
+        box-shadow: 3px 3px 0 var(--black);
+      }
+
+      .btn-primary {
+        background: var(--black);
+        color: var(--yellow);
+      }
+      .btn-secondary {
+        background: var(--white);
+        color: var(--black);
+      }
+      .btn-pink {
+        background: var(--pink);
+        color: var(--white);
+      }
+      .btn-teal {
+        background: var(--teal);
+        color: var(--black);
+      }
+
+      .hero-right {
+        background: var(--pink);
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        align-items: center;
+        padding: 3rem 2rem 0;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .hero-right-inner {
+        text-align: center;
+      }
+
+      .hero-title-block {
+        background: var(--yellow);
+        border: var(--border);
+        box-shadow: var(--shadow-lg);
+        padding: 1rem 1.5rem;
+        margin-bottom: 2rem;
+        display: inline-block;
+      }
+
+      .hero-title-block p {
+        font-family: "Space Mono", monospace;
+        font-size: 0.75rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+
+      .hero-title-block h2 {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 2.2rem;
+        letter-spacing: 3px;
+      }
+
+      .hero-stats {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1px;
+        width: 100%;
+        border-top: var(--border);
+        border-left: var(--border);
+        background: var(--black);
+      }
+
+      .stat-box {
+        background: var(--white);
+        padding: 1.5rem;
+        border-right: var(--border);
+        border-bottom: var(--border);
+      }
+
+      .stat-box:nth-child(odd) {
+        background: var(--black);
+        color: var(--white);
+      }
+      .stat-box:nth-child(even) {
+        background: var(--yellow);
+      }
+
+      .stat-num {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 3rem;
+        line-height: 1;
+        display: block;
+      }
+
+      .stat-label {
+        font-family: "Space Mono", monospace;
+        font-size: 0.65rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        display: block;
+        margin-top: 0.2rem;
+      }
+
+      /* MARQUEE */
+      .marquee-bar {
+        background: var(--black);
+        color: var(--yellow);
+        overflow: hidden;
+        white-space: nowrap;
+        padding: 0.75rem 0;
+        border-bottom: var(--border);
+      }
+
+      .marquee-inner {
+        display: inline-block;
+        animation: marquee 20s linear infinite;
+      }
+
+      .marquee-inner span {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 1.2rem;
+        letter-spacing: 3px;
+        margin: 0 2rem;
+      }
+
+      .marquee-inner .dot {
+        color: var(--pink);
+        margin: 0 0.5rem;
+      }
+
+      @keyframes marquee {
+        from {
+          transform: translateX(0);
+        }
+        to {
+          transform: translateX(-50%);
+        }
+      }
+
+      /* SECTIONS */
+      section {
+        border-bottom: var(--border);
+      }
+
+      .section-header {
+        border-bottom: var(--border);
+        padding: 1.5rem 3rem;
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+        background: var(--white);
+      }
+
+      .section-num {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 1rem;
+        color: var(--pink);
+        background: var(--black);
+        padding: 0.2rem 0.6rem;
+        letter-spacing: 2px;
+      }
+
+      .section-title {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 2rem;
+        letter-spacing: 3px;
+      }
+
+      /* ABOUT */
+      #about .content {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .about-text {
+        padding: 4rem 3rem;
+        border-right: var(--border);
+      }
+
+      .about-text h3 {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 3rem;
+        letter-spacing: 2px;
+        line-height: 1;
+        margin-bottom: 1.5rem;
+      }
+
+      .about-text h3 em {
+        font-style: normal;
+        color: var(--blue);
+        -webkit-text-stroke: 1px var(--black);
+      }
+
+      .about-text p {
+        font-size: 1rem;
+        line-height: 1.8;
+        margin-bottom: 1rem;
+        color: #333;
+      }
+
+      .about-right {
+        display: grid;
+        grid-template-rows: 1fr 1fr;
+      }
+
+      .about-info {
+        padding: 3rem;
+        border-bottom: var(--border);
+        background: var(--teal);
+      }
+
+      .info-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0.8rem 0;
+        border-bottom: 2px solid rgba(0, 0, 0, 0.2);
+        font-family: "Space Mono", monospace;
+        font-size: 0.75rem;
+      }
+
+      .info-item:last-child {
+        border-bottom: none;
+      }
+
+      .info-key {
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+      .info-val {
+        color: var(--black);
+      }
+
+      .about-skills {
+        padding: 3rem;
+        background: var(--black);
+        color: var(--white);
+      }
+
+      .about-skills h4 {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 1.5rem;
+        letter-spacing: 2px;
+        margin-bottom: 1.5rem;
+        color: var(--yellow);
+      }
+
+      .skill-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+      }
+
+      .skill-tag {
+        font-family: "Space Mono", monospace;
+        font-size: 0.65rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        padding: 0.3rem 0.7rem;
+        border: 2px solid var(--yellow);
+        background: transparent;
+        color: var(--yellow);
+        transition: all 0.15s;
+      }
+
+      .skill-tag:hover {
+        background: var(--yellow);
+        color: var(--black);
+      }
+
+      /* EXPERTISE */
+      #expertise {
+        background: var(--white);
+      }
+
+      .expertise-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      .expertise-card {
+        padding: 3rem 2.5rem;
+        border-right: var(--border);
+        position: relative;
+        transition: background 0.15s;
+      }
+
+      .expertise-card:last-child {
+        border-right: none;
+      }
+      .expertise-card:hover {
+        background: var(--yellow);
+      }
+
+      .exp-icon {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+        display: block;
+      }
+
+      .exp-num {
+        font-family: "Space Mono", monospace;
+        font-size: 0.65rem;
+        font-weight: 700;
+        color: var(--pink);
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        margin-bottom: 0.5rem;
+        display: block;
+      }
+
+      .exp-title {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 1.8rem;
+        letter-spacing: 2px;
+        margin-bottom: 1rem;
+        line-height: 1;
+      }
+
+      .exp-desc {
+        font-size: 0.9rem;
+        line-height: 1.7;
+        color: #444;
+      }
+
+      /* EXPERIENCE */
+      #experience {
+        background: var(--black);
+        color: var(--white);
+      }
+
+      #experience .section-header {
+        background: var(--black);
+        color: var(--white);
+        border-bottom-color: rgba(255, 255, 255, 0.2);
+      }
+
+      .timeline {
+        padding: 3rem;
+      }
+
+      .timeline-item {
+        display: grid;
+        grid-template-columns: 200px 1fr;
+        gap: 2rem;
+        padding: 2.5rem 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+      }
+
+      .timeline-item:last-child {
+        border-bottom: none;
+      }
+
+      .tl-date {
+        font-family: "Space Mono", monospace;
+        font-size: 0.7rem;
+        color: rgba(255, 255, 255, 0.5);
+        padding-top: 0.25rem;
+        line-height: 1.6;
+      }
+
+      .tl-co {
+        font-family: "Space Mono", monospace;
+        font-size: 0.65rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        color: var(--teal);
+        margin-bottom: 0.3rem;
+      }
+
+      .tl-role {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 1.8rem;
+        letter-spacing: 2px;
+        line-height: 1;
+        margin-bottom: 0.8rem;
+      }
+
+      .tl-desc {
+        font-size: 0.9rem;
+        line-height: 1.7;
+        color: rgba(255, 255, 255, 0.7);
+      }
+
+      .tl-badge {
+        display: inline-block;
+        font-family: "Space Mono", monospace;
+        font-size: 0.6rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        padding: 0.2rem 0.6rem;
+        margin-right: 0.4rem;
+        margin-top: 0.8rem;
+        border: 1px solid;
+      }
+
+      .badge-yellow {
+        border-color: var(--yellow);
+        color: var(--yellow);
+      }
+      .badge-pink {
+        border-color: var(--pink);
+        color: var(--pink);
+      }
+      .badge-teal {
+        border-color: var(--teal);
+        color: var(--teal);
+      }
+
+      /* SIDE HUSTLES */
+      #sides {
+        background: var(--pink);
+      }
+
+      #sides .section-header {
+        background: var(--pink);
+      }
+
+      .sides-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .side-card {
+        padding: 3.5rem 3rem;
+        border-right: var(--border);
+        border-bottom: var(--border);
+        background: var(--white);
+        transition: background 0.15s;
+        position: relative;
+      }
+
+      .side-card:hover {
+        background: var(--yellow);
+      }
+      .side-card:nth-child(even) {
+        border-right: none;
+      }
+      .side-card:nth-child(3),
+      .side-card:nth-child(4) {
+        border-bottom: none;
+      }
+
+      .side-card-accent {
+        position: absolute;
+        top: 1.5rem;
+        right: 1.5rem;
+        width: 40px;
+        height: 40px;
+        background: var(--pink);
+        border: var(--border);
+        box-shadow: var(--shadow);
+      }
+
+      .side-icon {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+        display: block;
+      }
+
+      .side-title {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 2rem;
+        letter-spacing: 2px;
+        margin-bottom: 0.5rem;
+        line-height: 1;
+      }
+
+      .side-subtitle {
+        font-family: "Space Mono", monospace;
+        font-size: 0.7rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        color: var(--pink);
+        margin-bottom: 1rem;
+      }
+
+      .side-desc {
+        font-size: 0.9rem;
+        line-height: 1.7;
+        color: #444;
+      }
+
+      /* CERTIFICATIONS */
+      #certs {
+        background: var(--teal);
+      }
+
+      #certs .section-header {
+        background: var(--teal);
+      }
+
+      .certs-intro {
+        padding: 2rem 3rem;
+        font-family: "Space Mono", monospace;
+        font-size: 0.8rem;
+        font-weight: 700;
+        font-style: italic;
+        border-bottom: var(--border);
+        background: var(--teal);
+      }
+
+      .certs-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        background: var(--black);
+        gap: 1px;
+      }
+
+      .cert-item {
+        background: var(--white);
+        padding: 1.5rem;
+        transition: background 0.15s;
+      }
+
+      .cert-item:hover {
+        background: var(--yellow);
+      }
+
+      .cert-name {
+        font-family: "Space Mono", monospace;
+        font-size: 0.7rem;
+        font-weight: 700;
+        line-height: 1.5;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      .cert-org {
+        font-size: 0.75rem;
+        color: var(--pink);
+        font-weight: 700;
+        margin-top: 0.3rem;
+        font-family: "Space Mono", monospace;
+      }
+
+      /* AWARDS */
+      #awards {
+        background: var(--yellow);
+      }
+
+      #awards .section-header {
+        background: var(--yellow);
+      }
+
+      .awards-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+      }
+
+      .award-item {
+        padding: 3rem;
+        border-right: var(--border);
+        position: relative;
+      }
+
+      .award-item:last-child {
+        border-right: none;
+      }
+
+      .award-year {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 4rem;
+        line-height: 1;
+        color: rgba(0, 0, 0, 0.12);
+        position: absolute;
+        top: 1.5rem;
+        right: 1.5rem;
+      }
+
+      .award-title {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 1.6rem;
+        letter-spacing: 2px;
+        line-height: 1.1;
+        margin-bottom: 0.5rem;
+      }
+
+      .award-org {
+        font-family: "Space Mono", monospace;
+        font-size: 0.7rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        color: var(--pink);
+      }
+
+      /* CONTACT */
+      #contact {
+        background: var(--black);
+        color: var(--white);
+      }
+
+      #contact .section-header {
+        background: var(--black);
+        color: var(--white);
+        border-bottom-color: rgba(255, 255, 255, 0.2);
+      }
+
+      .contact-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .contact-left {
+        padding: 5rem 4rem;
+        border-right: 3px solid rgba(255, 255, 255, 0.2);
+      }
+
+      .contact-left h2 {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: clamp(3rem, 6vw, 6rem);
+        letter-spacing: 2px;
+        line-height: 0.9;
+        margin-bottom: 2rem;
+      }
+
+      .contact-left h2 span {
+        color: var(--yellow);
+        display: block;
+      }
+
+      .contact-left p {
+        font-size: 1rem;
+        line-height: 1.8;
+        color: rgba(255, 255, 255, 0.7);
+        margin-bottom: 2.5rem;
+      }
+
+      .contact-links {
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+        border: var(--border);
+        border-color: rgba(255, 255, 255, 0.3);
+      }
+
+      .contact-link {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        padding: 1.2rem 1.5rem;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+        text-decoration: none;
+        color: var(--white);
+        font-family: "Space Mono", monospace;
+        font-size: 0.75rem;
+        transition: background 0.15s;
+      }
+
+      .contact-link:last-child {
+        border-bottom: none;
+      }
+      .contact-link:hover {
+        background: rgba(255, 255, 255, 0.08);
+      }
+
+      .contact-link-icon {
+        width: 32px;
+        height: 32px;
+        background: var(--teal);
+        border: 2px solid var(--teal);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1rem;
+        flex-shrink: 0;
+      }
+
+      .contact-right {
+        padding: 5rem 4rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+
+      .contact-right h3 {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 2rem;
+        letter-spacing: 3px;
+        color: var(--teal);
+        margin-bottom: 2rem;
+      }
+
+      .form-group {
+        margin-bottom: 1.5rem;
+      }
+
+      .form-group label {
+        display: block;
+        font-family: "Space Mono", monospace;
+        font-size: 0.65rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        color: rgba(255, 255, 255, 0.6);
+        margin-bottom: 0.5rem;
+      }
+
+      .form-group input,
+      .form-group textarea {
+        width: 100%;
+        padding: 0.9rem 1rem;
+        background: rgba(255, 255, 255, 0.07);
+        border: 2px solid rgba(255, 255, 255, 0.2);
+        color: var(--white);
+        font-family: "DM Sans", sans-serif;
+        font-size: 0.95rem;
+        outline: none;
+        transition: border-color 0.15s;
+      }
+
+      .form-group input:focus,
+      .form-group textarea:focus {
+        border-color: var(--yellow);
+      }
+
+      .form-group textarea {
+        resize: vertical;
+        min-height: 120px;
+      }
+
+      /* FOOTER */
+      footer {
+        background: var(--pink);
+        border-top: var(--border);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1.5rem 3rem;
+      }
+
+      footer .foot-logo {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 1.5rem;
+        letter-spacing: 3px;
+      }
+
+      footer p {
+        font-family: "Space Mono", monospace;
+        font-size: 0.65rem;
+        color: rgba(0, 0, 0, 0.5);
+      }
+
+      /* AVAILABILITY BADGE */
+      .avail-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-family: "Space Mono", monospace;
+        font-size: 0.65rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        background: var(--teal);
+        border: var(--border);
+        box-shadow: var(--shadow);
+        padding: 0.4rem 0.8rem;
+      }
+
+      .avail-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--black);
+        animation: pulse 2s infinite;
+      }
+
+      @keyframes pulse {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.3;
+        }
+      }
+
+      /* MOBILE */
+      @media (max-width: 768px) {
+        #hero {
+          grid-template-columns: 1fr;
+        }
+        .hero-right {
+          display: none;
+        }
+        #about .content {
+          grid-template-columns: 1fr;
+        }
+        .about-right {
+          grid-template-rows: auto auto;
+        }
+        .about-text {
+          border-right: none;
+          border-bottom: var(--border);
+        }
+        .expertise-grid {
+          grid-template-columns: 1fr;
+        }
+        .expertise-card {
+          border-right: none;
+          border-bottom: var(--border);
+        }
+        .sides-grid {
+          grid-template-columns: 1fr;
+        }
+        .side-card {
+          border-right: none;
+        }
+        .side-card:nth-child(even) {
+          border-right: none;
+        }
+        .certs-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .awards-row {
+          grid-template-columns: 1fr;
+        }
+        .award-item {
+          border-right: none;
+          border-bottom: var(--border);
+        }
+        .contact-grid {
+          grid-template-columns: 1fr;
+        }
+        .contact-left {
+          border-right: none;
+          border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .timeline-item {
+          grid-template-columns: 1fr;
+          gap: 0.5rem;
+        }
+        nav {
+          padding: 0 1rem;
+        }
+        .nav-links a {
+          padding: 0.5rem 0.7rem;
+          font-size: 0.6rem;
+        }
+        .hero-left {
+          padding: 3rem 1.5rem;
+        }
+        .section-header {
+          padding: 1rem 1.5rem;
+        }
+        .timeline {
+          padding: 2rem 1.5rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- NAV -->
+    <nav>
+      <a href="#hero" class="nav-logo">MT_</a>
+      <ul class="nav-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#expertise">Expertise</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#sides">Side Hustles</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+
+    <!-- HERO -->
+    <section id="hero">
+      <div class="hero-left">
+        <span class="hero-tag">From State Parks to Enterprise CRM.</span>
+        <h1 class="hero-name">
+          Michelle
+          <span>Tabor.</span>
+        </h1>
+        <p class="hero-sub">
+          Solutions Engineer &amp; HubSpot Architect at Aptitude 8. I build
+          complex CRM systems, integrations, and web applications that actually
+          work for the humans using them.
+        </p>
+        <!-- <div style="margin-bottom: 2rem;">
+        <span class="avail-badge"><span class="avail-dot"></span> Open to Freelance</span>
+      </div> -->
+
+        <div class="hero-ctas">
+          <a href="#experience" class="btn btn-primary">See My Work</a>
+          <a
+            href="https://www.linkedin.com/in/bortami"
+            class="btn btn-secondary"
+            target="_blank"
+            >LinkedIn</a
+          >
+          <a href="mailto:chelletabor66@gmail.com" class="btn btn-teal"
+            >Contact Me</a
+          >
+        </div>
+      </div>
+      <div class="hero-right">
+        <div class="hero-right-inner">
+          <div class="hero-photo-wrap">
+            <img
+              src="images/headshot.png"
+              alt="Michelle Tabor"
+              class="hero-photo"
+            />
+          </div>
+        </div>
+        <div class="hero-stats">
+          <div class="stat-box">
+            <span class="stat-num">12+</span>
+            <span class="stat-label">Years Building</span>
+          </div>
+          <div class="stat-box">
+            <span class="stat-num">23+</span>
+            <span class="stat-label">HubSpot Certs</span>
+          </div>
+          <div class="stat-box">
+            <span class="stat-num">3</span>
+            <span class="stat-label">Active Ventures</span>
+          </div>
+          <div class="stat-box">
+            <span class="stat-num">OKC</span>
+            <span class="stat-label">Home Base</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MARQUEE -->
+    <div class="marquee-bar" aria-hidden="true">
+      <div class="marquee-inner">
+        <span>HubSpot Architect</span><span class="dot">&#10022;</span>
+        <span>Solutions Engineer</span><span class="dot">&#10022;</span>
+        <span>CRM Development</span><span class="dot">&#10022;</span>
+        <span>Systems Integrations</span><span class="dot">&#10022;</span>
+        <span>Race Timer</span><span class="dot">&#10022;</span>
+        <span>Event Photographer</span><span class="dot">&#10022;</span>
+        <span>Full Stack Developer</span><span class="dot">&#10022;</span>
+         <span>HubSpot Architect</span
+        ><span class="dot">&#10022;</span> <span>Solutions Engineer</span
+        ><span class="dot">&#10022;</span> <span>CRM Development</span
+        ><span class="dot">&#10022;</span> <span>Systems Integrations</span
+        ><span class="dot">&#10022;</span> <span>Race Timer</span
+        ><span class="dot">&#10022;</span> <span>Event Photographer</span
+        ><span class="dot">&#10022;</span> <span>Full Stack Developer</span
+        ><span class="dot">&#10022;</span>
+      
+      </div>
+    </div>
+
+    <!-- ABOUT -->
+    <section id="about">
+      <div class="section-header">
+        <span class="section-num">01</span>
+        <h2 class="section-title">About Me</h2>
+      </div>
+      <div class="content">
+        <div class="about-text">
+          <h3>Problem Solver. <em>Artist.</em> Maker.</h3>
+          <p>
+            My journey in tech started in 2003 when I built my first website for
+            fun. What followed was a career that has twisted through state
+            parks, restaurant management, event marketing, eCommerce, and
+            eventually landing exactly where I belong: at the intersection of
+            complex business problems and elegant technical solutions.
+          </p>
+          <p>
+            At Aptitude 8, I design and implement advanced HubSpot-based
+            architectures for mid-market and enterprise clients. That means
+            everything from CRM data modeling and custom UI extensions to
+            integrating HubSpot with Salesforce, Workday, Dynamics 365, and
+            whatever else the project demands.
+          </p>
+          <p>
+            I have a background in accounting and business management that gives
+            me a data-driven lens most engineers don't have. I don't just build
+            what you ask for. I ask why you need it, what it needs to scale to,
+            and what happens when it breaks at 2 AM.
+          </p>
+          <p>
+            Outside of client work, I time road races, photograph athletes,
+            paint, and am always working on something new. That's just how I'm
+            built.
+          </p>
+          <div style="margin-top: 2rem">
+            <a
+              href="https://docs.google.com/document/d/1qL8_LuQe_tCT53Q_-rHwIMbj98DNY-yq7VLW8AGep_g/edit?usp=sharing"
+              target="_blank"
+              class="btn btn-primary"
+              >Download Resume</a
+            >
+          </div>
+        </div>
+        <div class="about-right">
+          <div class="about-info">
+            <div class="info-item">
+              <span class="info-key">Location</span>
+              <span class="info-val">Oklahoma City, OK</span>
+            </div>
+            <div class="info-item">
+              <span class="info-key">Timezone</span>
+              <span class="info-val">Central Standard</span>
+            </div>
+            <div class="info-item">
+              <span class="info-key">Current Role</span>
+              <span class="info-val">Solutions Engineer @ Aptitude 8</span>
+            </div>
+           
+            <div class="info-item">
+              <span class="info-key">Email</span>
+              <span class="info-val">chelletabor66@gmail.com</span>
+            </div>
+            <div class="info-item">
+              <span class="info-key">Recognition</span>
+              <span class="info-val">2023 Women in STEM Power List</span>
+            </div>
+          </div>
+          <div class="about-skills">
+            <h4>Technical Stack</h4>
+            <div class="skill-tags">
+              <span class="skill-tag">HubSpot CMS</span>
+              <span class="skill-tag">HubSpot CRM</span>
+              <span class="skill-tag">HubL</span>
+              <span class="skill-tag">Salesforce</span>
+              <span class="skill-tag">Node.js</span>
+              <span class="skill-tag">Python</span>
+              <span class="skill-tag">React</span>
+              <span class="skill-tag">JavaScript</span>
+              <span class="skill-tag">PHP</span>
+              <span class="skill-tag">MongoDB</span>
+              <span class="skill-tag">AWS</span>
+              <span class="skill-tag">Dynamics 365</span>
+              <span class="skill-tag">Marketo</span>
+              <span class="skill-tag">Netsuite</span>
+              <span class="skill-tag">Klaviyo</span>
+              <span class="skill-tag">Shopify</span>
+              <span class="skill-tag">REST APIs</span>
+              <span class="skill-tag">Serverless</span>
+               <span class="skill-tag">Wordpress</span>
+               <span class="skill-tag">and more.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- EXPERTISE -->
+    <section id="expertise">
+      <div class="section-header">
+        <span class="section-num">02</span>
+        <h2 class="section-title">What I Do</h2>
+      </div>
+      <div class="expertise-grid">
+        <div class="expertise-card">
+          <span class="exp-icon">&#9141;</span>
+          <span class="exp-num">Core Expertise</span>
+          <h3 class="exp-title">HubSpot Architecture</h3>
+          <p class="exp-desc">
+            I design scalable CRM architectures, custom objects, data models,
+            and workflow automations that power revenue operations at scale.
+            From the initial audit to go-live, I own the full technical scope.
+          </p>
+        </div>
+        <div class="expertise-card">
+          <span class="exp-icon">&#9881;</span>
+          <span class="exp-num">Integrations</span>
+          <h3 class="exp-title">Systems Integration</h3>
+          <p class="exp-desc">
+            API-first integrations between HubSpot and platforms like
+            Salesforce, Workday, Dynamics 365, Athenahealth, and Applied Epic. I
+            build middleware, serverless functions, and bidirectional sync
+            pipelines that don't fall apart under load.
+          </p>
+        </div>
+        <div class="expertise-card">
+          <span class="exp-icon">&#9776;</span>
+          <span class="exp-num">Development</span>
+          <h3 class="exp-title">Custom Development</h3>
+          <p class="exp-desc">
+            Full-stack development with a HubSpot focus. Custom UI extensions,
+            serverless apps on AWS and Azure, HubSpot CMS themes, and bespoke
+            tools that go beyond what any out-of-the-box solution can offer.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- EXPERIENCE -->
+    <section id="experience">
+      <div class="section-header">
+        <span class="section-num">03</span>
+        <h2 class="section-title">Experience</h2>
+      </div>
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="tl-date">Jan 2025 &mdash; Present</div>
+          <div>
+            <div class="tl-co">Aptitude 8</div>
+            <div class="tl-role">Solutions Engineer</div>
+            <p class="tl-desc">
+              Designing and implementing advanced HubSpot-based solutions for
+              mid-market and enterprise clients. I architect CRM systems, build
+              custom applications and UI extensions, and lead API integrations
+              with platforms including Salesforce, Workday, Dynamics 365,
+              Athenahealth, and Applied Epic. I also design secure cloud-based
+              architectures on AWS and Azure using modern serverless frameworks.
+            </p>
+            <span class="tl-badge badge-yellow">HubSpot Architect</span>
+            <span class="tl-badge badge-teal">AWS</span>
+            <span class="tl-badge badge-pink">RevOps</span>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="tl-date">May 2023 &mdash; Jan 2025</div>
+          <div>
+            <div class="tl-co">Lynton</div>
+            <div class="tl-role">Solutions Engineer</div>
+            <p class="tl-desc">
+              Supported enterprise businesses in pursuing integrated systems. I
+              collaborated with sales during pre-sales, designed multiple
+              project solutions simultaneously, and led post-sales technical
+              discovery sessions. Translated business requirements into
+              technical specifications and served as a resource for Account
+              Managers and developers in a remote environment.
+            </p>
+            <span class="tl-badge badge-yellow">Pre-Sales Engineering</span>
+            <span class="tl-badge badge-teal">Technical Scoping</span>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="tl-date">Jan 2021 &mdash; May 2023</div>
+          <div>
+            <div class="tl-co">BridgeRev</div>
+            <div class="tl-role">VP, HubSpot Architecture</div>
+            <p class="tl-desc">
+              Led all web development, custom integrations, and HubSpot
+              architecture projects end-to-end. Managed a hybrid team of
+              developers and designers, defined architecture with
+              cross-functional teams, and wrote all client and internal
+              documentation. Built custom HubSpot CMS themes, automation
+              workflows, modules, and bespoke integration solutions.
+            </p>
+            <span class="tl-badge badge-pink">Team Lead</span>
+            <span class="tl-badge badge-yellow">HubSpot CMS</span>
+            <span class="tl-badge badge-teal">Integrations</span>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="tl-date">2012 &mdash; 2021</div>
+          <div>
+            <div class="tl-co">Freelance &amp; Earlier Roles</div>
+            <div class="tl-role">Designer / Developer</div>
+            <p class="tl-desc">
+              Nearly a decade of freelance web and graphic design across
+              Shopify, WordPress, Wix, and custom builds. Earlier roles include
+              Event Marketing Manager at Gannett / EnMotive, where I built
+              registration platforms and timed live endurance events, and an
+              eCommerce Manager role where I built multichannel inventory and
+              payment integrations.
+            </p>
+            <span class="tl-badge badge-teal">Freelance</span>
+            <span class="tl-badge badge-yellow">Shopify / WP</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SIDE HUSTLES -->
+    <section id="sides">
+      <div class="section-header">
+        <span class="section-num">04</span>
+        <h2 class="section-title">Side Hustles</h2>
+      </div>
+      <div class="sides-grid">
+        <div class="side-card">
+          <div class="side-card-accent"></div>
+          <span class="side-icon">&#127939;</span>
+          <a href="https://www.dustandrunphotos.com" target="_blank"><h3 class="side-title">Dust &amp; Run Photos</h3></a>
+          <div class="side-subtitle">Race Timer &amp; Photographer</div>
+          <p class="side-desc">
+            I manage end-to-end timing for 5Ks, marathons, and multisport events
+            across Oklahoma using industry-standard RFID and chip timing
+            systems. I also provide high-volume event photography with
+            AI-powered bib tagging, sponsor branding, and digital gallery
+            delivery. This operation runs independently and in parallel with
+            full-time technical work.
+          </p>
+        </div>
+        <div class="side-card">
+          <div class="side-card-accent" style="background: var(--teal)"></div>
+          <span class="side-icon">&#127912;</span>
+          <a href="https://lunarilabs.etsy.com" target="_blank"><h3 class="side-title">Lunari Labs</h3></a>
+          <div class="side-subtitle">CWriting, Poetry & Typography Art</div>
+          <p class="side-desc">
+            Lunari Labs is my Etsy shop and creative outlet for the work that doesn't fit a job description. Poetry, written pieces, and typography art that sits at the intersection of language and design. It's where the part of my brain that isn't solving CRM problems gets to speak.
+          </p>
+        </div>
+        <div class="side-card">
+          <div class="side-card-accent" style="background: var(--blue)"></div>
+          <span class="side-icon">&#128187;</span>
+          <a href="https://9thwestern.etsy.com" target="_blank"><h3 class="side-title">NinthWestern</h3></a>
+          <div class="side-subtitle">Nerdy Nature Stickers</div>
+          <p class="side-desc">
+            NinthWestern is my sticker shop and an excuse to make things purely because they're fun. Designs that are bold, weird, and a little opinionated — which, if you've read this far, probably tracks.
+          </p>
+        </div>
+        <div class="side-card">
+          <div
+            class="side-card-accent"
+            style="background: var(--yellow); border-color: var(--black)"
+          ></div>
+          <span class="side-icon">&#128218;</span>
+          <h3 class="side-title">Always Learning</h3>
+          <div class="side-subtitle">Education &amp; Community</div>
+          <p class="side-desc">
+            Currently pursuing an Information Technology degree at Oklahoma
+            State University. I also earned my AWS Academy Cloud Foundations
+            badge and continue to chase new certifications. I believe deeply
+            that staying at the edge of what you know is how you avoid becoming
+            obsolete.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CERTS -->
+    <section id="certs">
+      <div class="section-header">
+        <span class="section-num">05</span>
+        <h2 class="section-title">Certifications</h2>
+      </div>
+      <div class="certs-intro">
+        It's a bit ridiculous, isn't it? &mdash; 23+ active HubSpot
+        certifications plus AWS.
+      </div>
+      <div class="certs-grid">
+        <div class="cert-item">
+          <div class="cert-name">Architecture I</div>
+          <div class="cert-org">HubSpot</div>
+        </div>
+        <div class="cert-item">
+          <div class="cert-name">Architecture II</div>
+          <div class="cert-org">HubSpot</div>
+        </div>
+        <div class="cert-item">
+          <div class="cert-name">Solutions Architecture</div>
+          <div class="cert-org">HubSpot</div>
+        </div>
+        <div class="cert-item">
+          <div class="cert-name">Integrating with HubSpot I</div>
+          <div class="cert-org">HubSpot</div>
+        </div>
+        <div class="cert-item">
+          <div class="cert-name">CMS for Developers I</div>
+          <div class="cert-org">HubSpot</div>
+        </div>
+        <div class="cert-item">
+          <div class="cert-name">CMS for Developers II</div>
+          <div class="cert-org">HubSpot</div>
+        </div>
+        <div class="cert-item">
+          <div class="cert-name">CMS Hub Implementation</div>
+          <div class="cert-org">HubSpot</div>
+        </div>
+        <div class="cert-item">
+          <div class="cert-name">CMS for Marketers</div>
+          <div class="cert-org">HubSpot</div>
+        </div>
+        <div class="cert-item">
+          <div class="cert-name">Revenue Operations</div>
+          <div class="cert-org">HubSpot</div>
+        </div>
+        <div class="cert-item">
+          <div class="cert-name">Data Integrations</div>
+          <div class="cert-org">HubSpot</div>
+        </div>
+        <div class="cert-item">
+          <div class="cert-name">Reporting</div>
+          <div class="cert-org">HubSpot</div>
+        </div>
+        <div class="cert-item">
+          <div class="cert-name">Client Management</div>
+          <div class="cert-org">HubSpot</div>
+        </div>
+        <div class="cert-item">
+          <div class="cert-name">Platform Consulting</div>
+          <div class="cert-org">HubSpot</div>
+        </div>
+        <div class="cert-item">
+          <div class="cert-name">Salesforce Integration</div>
+          <div class="cert-org">HubSpot</div>
+        </div>
+        <div class="cert-item">
+          <div class="cert-name">Sales Hub Implementation</div>
+          <div class="cert-org">HubSpot</div>
+        </div>
+        <div class="cert-item">
+          <div class="cert-name">Marketing Hub Implementation</div>
+          <div class="cert-org">HubSpot</div>
+        </div>
+        <div class="cert-item">
+          <div class="cert-name">Marketing Software</div>
+          <div class="cert-org">HubSpot</div>
+        </div>
+        <div class="cert-item">
+          <div class="cert-name">Inbound Marketing</div>
+          <div class="cert-org">HubSpot</div>
+        </div>
+        <div class="cert-item">
+          <div class="cert-name">Contextual Marketing</div>
+          <div class="cert-org">HubSpot</div>
+        </div>
+        <div class="cert-item">
+          <div class="cert-name">Growth Driven Design</div>
+          <div class="cert-org">HubSpot</div>
+        </div>
+        <div class="cert-item">
+          <div class="cert-name">Objectives-Based Onboarding</div>
+          <div class="cert-org">HubSpot</div>
+        </div>
+        <div class="cert-item">
+          <div class="cert-name">Service Hub Software</div>
+          <div class="cert-org">HubSpot</div>
+        </div>
+        <div class="cert-item">
+          <div class="cert-name">Sales Software</div>
+          <div class="cert-org">HubSpot</div>
+        </div>
+        <div class="cert-item">
+          <div class="cert-name">Cloud Foundations</div>
+          <div class="cert-org">AWS Academy</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- AWARDS -->
+    <section id="awards">
+      <div class="section-header">
+        <span class="section-num">06</span>
+        <h2 class="section-title">Recognition</h2>
+      </div>
+      <div class="awards-row">
+        <div class="award-item">
+          <div class="award-year">2023</div>
+          <div class="award-title">
+            Journal Record Power List: Women in STEM
+          </div>
+          <div class="award-org">Journal Record, Oklahoma &mdash; 2023</div>
+        </div>
+        <div class="award-item">
+          <div class="award-year">2024</div>
+          <div class="award-title">Growth Gang Award</div>
+          <div class="award-org">Internal Recognition</div>
+        </div>
+        <div class="award-item">
+          <div class="award-year">2025</div>
+          <div class="award-title">Confident With the Unknown</div>
+          <div class="award-org">Peer Recognition</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact">
+      <div class="section-header">
+        <span class="section-num">07</span>
+        <h2 class="section-title">Contact</h2>
+      </div>
+      <div class="contact-grid">
+        <div class="contact-left">
+          <h2>Let's <span>Build Something.</span></h2>
+          <p>
+            If you have a complex HubSpot challenge, a system integration that's
+            been giving your team headaches, or a project that needs someone who
+            can think and build, I want to hear about it.
+          </p>
+          <div class="contact-links">
+           
+            <a
+              href="https://www.linkedin.com/in/bortami"
+              class="contact-link"
+              target="_blank"
+            >
+              <div class="contact-link-icon">in</div>
+              linkedin.com/in/bortami
+            </a>
+            <a
+              href="https://www.github.com/bortami"
+              class="contact-link"
+              target="_blank"
+            >
+              <div class="contact-link-icon">gh</div>
+              github.com/bortami
+            </a>
+            <a
+              href="https://michelletabor.substack.com/"
+              class="contact-link"
+              target="_blank"
+            >
+              <div class="contact-link-icon">st</div>
+              michelletabor.substack.com
+            </a>
+          </div>
+        </div>
+        <!--<div class="contact-right">
+           <h3>Send a Message</h3>
+          <form action="contact_form/contact_form.php" method="post">
+            <div class="form-group">
+              <label>Your Name</label>
+              <input
+                type="text"
+                name="name"
+                placeholder="Jane Smith"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label>Email Address</label>
+              <input
+                type="email"
+                name="email"
+                placeholder="jane@company.com"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label>Message</label>
+              <textarea
+                name="message"
+                placeholder="Tell me about your project..."
+                required
+              ></textarea>
+            </div>
+            <button
+              type="submit"
+              class="btn btn-yellow"
+              style="
+                background: var(--yellow);
+                color: var(--black);
+                border-color: var(--yellow);
+              "
+            >
+              Send It
+            </button>
+          </form>
+        </div>--->
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+      <div class="foot-logo">Michelle Tabor_</div>
+      
+      <p
+        style="
+          font-family: &quot;Space Mono&quot;, monospace;
+          font-size: 0.6rem;
+          color: rgba(0, 0, 0, 0.4);
+        "
+      >
+        Built with intentional chaos.
+      </p>
+    </footer>
+  </body>
+</html>
