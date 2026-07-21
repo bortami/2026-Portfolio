@@ -97,6 +97,42 @@
         color: var(--yellow);
       }
 
+      /* HAMBURGER */
+      .nav-toggle {
+        display: none;
+        flex-direction: column;
+        justify-content: center;
+        gap: 5px;
+        width: 44px;
+        height: 44px;
+        padding: 0;
+        background: var(--white);
+        border: var(--border);
+        box-shadow: 3px 3px 0 var(--black);
+        cursor: pointer;
+      }
+
+      .nav-toggle span {
+        display: block;
+        width: 22px;
+        height: 3px;
+        margin: 0 auto;
+        background: var(--black);
+        transition:
+          transform 0.2s,
+          opacity 0.2s;
+      }
+
+      .nav-toggle.open span:nth-child(1) {
+        transform: translateY(8px) rotate(45deg);
+      }
+      .nav-toggle.open span:nth-child(2) {
+        opacity: 0;
+      }
+      .nav-toggle.open span:nth-child(3) {
+        transform: translateY(-8px) rotate(-45deg);
+      }
+
       /* HERO */
       #hero {
         min-height: 100vh;
@@ -1061,9 +1097,40 @@
         nav {
           padding: 0 1rem;
         }
+        .nav-toggle {
+          display: flex;
+        }
+        .nav-links {
+          position: fixed;
+          top: 60px;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          flex-direction: column;
+          justify-content: center;
+          align-items: stretch;
+          background: var(--yellow);
+          border-top: var(--border);
+          transform: translateX(100%);
+          transition: transform 0.25s ease;
+          z-index: 99;
+        }
+        .nav-links.open {
+          transform: translateX(0);
+        }
+        .nav-links li {
+          width: 100%;
+        }
         .nav-links a {
-          padding: 0.5rem 0.7rem;
-          font-size: 0.6rem;
+          display: block;
+          padding: 1.25rem 2rem;
+          font-size: 1rem;
+          text-align: left;
+          border-left: none;
+          border-bottom: var(--border);
+        }
+        .nav-links a:last-child {
+          border-right: none;
         }
         .hero-left {
           padding: 3rem 1.5rem;
@@ -1081,11 +1148,21 @@
     <!-- NAV -->
     <nav>
       <a href="#hero" class="nav-logo">MT_</a>
-      <ul class="nav-links">
+      <button
+        class="nav-toggle"
+        id="navToggle"
+        aria-label="Toggle menu"
+        aria-expanded="false"
+        aria-controls="navLinks"
+      >
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links" id="navLinks">
         <li><a href="#about">About</a></li>
         <li><a href="#expertise">Expertise</a></li>
         <li><a href="#experience">Experience</a></li>
         <li><a href="#sides">Side Hustles</a></li>
+        <li><a href="https://michelletabor.substack.com">Blog</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
     </nav>
@@ -1688,5 +1765,36 @@
         Built with intentional chaos.
       </p>
     </footer>
+
+    <script>
+      (function () {
+        const toggle = document.getElementById("navToggle");
+        const links = document.getElementById("navLinks");
+
+        function closeMenu() {
+          links.classList.remove("open");
+          toggle.classList.remove("open");
+          toggle.setAttribute("aria-expanded", "false");
+          document.body.style.overflow = "";
+        }
+
+        toggle.addEventListener("click", function () {
+          const open = links.classList.toggle("open");
+          toggle.classList.toggle("open", open);
+          toggle.setAttribute("aria-expanded", String(open));
+          document.body.style.overflow = open ? "hidden" : "";
+        });
+
+        // Close the overlay after tapping a link
+        links.querySelectorAll("a").forEach(function (a) {
+          a.addEventListener("click", closeMenu);
+        });
+
+        // Close on Escape
+        document.addEventListener("keydown", function (e) {
+          if (e.key === "Escape") closeMenu();
+        });
+      })();
+    </script>
   </body>
 </html>
